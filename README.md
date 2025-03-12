@@ -113,23 +113,6 @@ go build -o go-dot-dot
    git push -u origin main
    ```
 
-## Publishing as a Go Package
-
-1. Ensure your module name in `go.mod` matches your GitHub repository path:
-   ```
-   module github.com/yourusername/go-dot-dot
-   ```
-2. Push your code to GitHub
-3. Tag a release:
-   ```bash
-   git tag v0.1.0
-   git push origin v0.1.0
-   ```
-4. Your package will be available via:
-   ```bash
-   go get github.com/yourusername/go-dot-dot@v0.1.0
-   ```
-
 ## License
 
 [MIT License](LICENSE)
