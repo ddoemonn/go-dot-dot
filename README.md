@@ -5,8 +5,8 @@ A PostgreSQL database explorer TUI (Terminal User Interface) application written
 ## Features
 
 - Browse database tables in an interactive terminal interface
-- View table data with pagination
-- Search and filter table contents
+- View table data
+- Search table contents
 - Detailed row view for examining specific records
 - Keyboard-driven navigation with intuitive shortcuts
 
