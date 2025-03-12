@@ -60,9 +60,7 @@ After starting the application, you'll see a list of tables in your database.
 - `q`: Quit the application
 - `?`: Toggle help view
 
-## Development
-
-### Project Structure
+## Project Structure
 
 ```
 go-dot-dot/
@@ -79,12 +77,6 @@ go-dot-dot/
 ├── go.mod                  # Go module definition
 ├── go.sum                  # Go module checksums
 └── .env                    # Environment variables
-```
-
-### Building from Source
-
-```bash
-go build -o go-dot-dot
 ```
 
 ## License
