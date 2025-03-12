@@ -1,0 +1,42 @@
+# Go binary files
+/bin/
+/obj/
+
+# Go workspace file
+go.work
+go.work.sum
+
+# Compiled Go binaries
+*.exe
+*.exe~
+*.out
+*.test
+
+# Dependency directories
+/vendor/
+
+# IDE or editor folders and files
+.idea/
+.vscode/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Environment variable files
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+
+# Coverage file
+*.coverprofile
+
+# Build artifacts
+build/
+dist/
+
+# Go test cache
+*.test.cache/
