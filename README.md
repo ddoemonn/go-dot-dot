@@ -21,7 +21,7 @@ A PostgreSQL database explorer TUI (Terminal User Interface) application written
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/go-dot-dot.git
+git clone https://github.com/ddoemonn/go-dot-dot.git
 cd go-dot-dot
 
 # Build the application
@@ -34,7 +34,7 @@ go build -o go-dot-dot
 ### Using Go Install
 
 ```bash
-go install github.com/yourusername/go-dot-dot@latest
+go install github.com/ddoemonn/go-dot-dot@latest
 ```
 
 ## Configuration
@@ -88,30 +88,6 @@ go-dot-dot/
 ```bash
 go build -o go-dot-dot
 ```
-
-## Publishing to GitHub
-
-1. Create a new repository on GitHub
-2. Initialize Git in your local project (if not already done):
-   ```bash
-   git init
-   ```
-3. Add your files:
-   ```bash
-   git add .
-   ```
-4. Commit your changes:
-   ```bash
-   git commit -m "Initial commit"
-   ```
-5. Add your GitHub repository as remote:
-   ```bash
-   git remote add origin https://github.com/yourusername/go-dot-dot.git
-   ```
-6. Push your code:
-   ```bash
-   git push -u origin main
-   ```
 
 ## License
 
