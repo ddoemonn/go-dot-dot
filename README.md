@@ -32,6 +32,7 @@ sudo mv go-dot-dot /usr/local/bin
 
 # Run the application
 go-dot-dot
+```
 
 
 ## Configuration
