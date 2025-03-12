@@ -27,15 +27,12 @@ cd go-dot-dot
 # Build the application
 go build -o go-dot-dot
 
+# Move the executable to a directory in your PATH (e.g., /usr/local/bin)
+sudo mv go-dot-dot /usr/local/bin
+
 # Run the application
-./go-dot-dot
-```
+go-dot-dot
 
-### Using Go Install
-
-```bash
-go install github.com/ddoemonn/go-dot-dot@latest
-```
 
 ## Configuration
 
