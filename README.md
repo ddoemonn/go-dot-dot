@@ -64,8 +64,6 @@ After starting the application, you'll see a list of tables in your database.
 
 ```
 go-dot-dot/
-├── cmd/
-│   └── go-dot-dot-cmd/     # Command implementation
 ├── internal/
 │   ├── app/                # Application logic
 │   ├── config/             # Configuration handling
