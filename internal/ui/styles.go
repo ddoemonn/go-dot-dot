@@ -56,7 +56,7 @@ func NewStyles() *Styles {
     
     // Base styles
     s.Base = lipgloss.NewStyle().
-        Background(lipgloss.Color(ColorBackground)).
+        //Background(lipgloss.Color(ColorBackground)).
         Foreground(lipgloss.Color(ColorText))
 
     s.Focused = lipgloss.NewStyle().
@@ -71,8 +71,8 @@ func NewStyles() *Styles {
         MarginRight(2)
 
     s.App = lipgloss.NewStyle().
-        Padding(1).
-        Background(lipgloss.Color(ColorBackground))
+        Padding(1)
+        //Background(lipgloss.Color(ColorBackground))
 
     s.Title = lipgloss.NewStyle().
         Bold(true).
@@ -93,7 +93,7 @@ func NewStyles() *Styles {
 
     s.Help = lipgloss.NewStyle().
         Foreground(lipgloss.Color(ColorText)).
-        Background(lipgloss.Color(ColorBackground)).
+        //Background(lipgloss.Color(ColorBackground)).
         Padding(1).
         Border(lipgloss.RoundedBorder()).
         BorderForeground(lipgloss.Color(ColorMuted))
@@ -118,7 +118,7 @@ func NewStyles() *Styles {
 
     s.AppTitle = lipgloss.NewStyle().
         Bold(true).
-        Foreground(lipgloss.Color(ColorText)).
+        Foreground(lipgloss.Color(ColorBackground)).
         Background(lipgloss.Color(ColorPrimary)).
         Padding(1, 2).
         Align(lipgloss.Center)

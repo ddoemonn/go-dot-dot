@@ -23,7 +23,7 @@ func CreateTableList(tables []string, styles *Styles) list.Model {
     listDelegate := list.NewDefaultDelegate()
     listDelegate.SetSpacing(0) // Reduce the spacing between items to 0
     listDelegate.Styles.SelectedTitle = listDelegate.Styles.SelectedTitle.
-        Foreground(lipgloss.Color(ColorBackground)).
+        //Foreground(lipgloss.Color(ColorBackground)).
         Background(lipgloss.Color(ColorSecondary))
     listDelegate.Styles.NormalTitle = listDelegate.Styles.NormalTitle.
         Foreground(lipgloss.Color(ColorText))
