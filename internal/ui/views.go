@@ -175,7 +175,7 @@ func RenderDetailView(data map[string]string, width int, rowIndex int, styles *S
             formattedValue = styles.DetailNull.Render("NULL")
         }
         
-        label := styles.DetailLabel.Copy().Width(maxKeyLen + 1).Render(k + ":")
+        label := styles.DetailLabel.Copy().Width(maxKeyLen + 2).Render(k + ":")
         value := styles.DetailValue.Render(formattedValue)
         
         row := fmt.Sprintf("%s %s", label, value)

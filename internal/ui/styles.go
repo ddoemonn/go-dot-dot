@@ -1,7 +1,7 @@
 package ui
 
 import (
-    "github.com/charmbracelet/lipgloss"
+	"github.com/charmbracelet/lipgloss"
 )
 
 // Color constants
@@ -134,8 +134,6 @@ func NewStyles() *Styles {
         Background(lipgloss.Color(ColorMuted)).
         Foreground(lipgloss.Color(ColorBackground)).
         Bold(true).
-        Padding(0, 1).
-        MarginBottom(1).
         Width(25).
         Align(lipgloss.Center)
         
@@ -146,9 +144,7 @@ func NewStyles() *Styles {
     s.TableDataHeader = lipgloss.NewStyle().
         Background(lipgloss.Color(ColorSecondary)).
         Foreground(lipgloss.Color(ColorBackground)).
-        Bold(true).
-        Padding(0, 1).
-        MarginBottom(1)
+        Bold(true)
         
     s.Divider = lipgloss.NewStyle().
         Foreground(lipgloss.Color(ColorMuted))
