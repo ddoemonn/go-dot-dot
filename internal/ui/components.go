@@ -50,7 +50,7 @@ func CreateSearchInput() textinput.Model {
 }
 
 // CreateTableData creates a styled table based on column names and data
-func CreateTableData(columns []string, data [][]string) table.Model {
+func CreateTableData(columns []string, data [][]string, horizontalScrollOffset int) table.Model {
     rows := make([]table.Row, len(data))
     for i, d := range data {
         // Make sure we don't go out of bounds if the data has more columns than headers
@@ -75,9 +75,9 @@ func CreateTableData(columns []string, data [][]string) table.Model {
         rows[i] = row
     }
     
-    // Create table columns
+    // Create table columns with horizontal scrolling
     t := table.New(
-        table.WithColumns(makeColumns(columns)),
+        table.WithColumns(makeColumns(columns, horizontalScrollOffset)),
         table.WithRows(rows),
         table.WithFocused(true),
         table.WithHeight(20),
@@ -104,22 +104,34 @@ func CreateTableData(columns []string, data [][]string) table.Model {
     return t
 }
 
-// Create table columns with appropriate widths
-func makeColumns(headers []string) []table.Column {
+// Create table columns with appropriate widths and horizontal scrolling
+func makeColumns(headers []string, horizontalScrollOffset int) []table.Column {
     columns := make([]table.Column, len(headers))
-    for i, header := range headers {
+    
+    // Apply horizontal scrolling offset
+    visibleHeaders := headers
+    if horizontalScrollOffset > 0 && horizontalScrollOffset < len(headers) {
+        visibleHeaders = headers[horizontalScrollOffset:]
+    }
+    
+    for i, header := range visibleHeaders {
         // Adjust width based on header length
-        width := len(header) + 4
-        if width < 12 {
-            width = 12
-        } else if width > 30 {
-            width = 30
+        width := len(header) + 8
+        if width < 16 {
+            width = 16
+        } else if width > 40 {
+            width = 40
         }
         
-        columns[i] = table.Column{
-            Title: header,
-            Width: width,
+        // Calculate the actual index in the original headers array
+        actualIndex := i + horizontalScrollOffset
+        if actualIndex < len(headers) {
+            columns[actualIndex] = table.Column{
+                Title: header,
+                Width: width,
+            }
         }
     }
+    
     return columns
 }

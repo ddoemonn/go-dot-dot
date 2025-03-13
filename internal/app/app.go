@@ -57,6 +57,7 @@ func New(cfg *config.Config) (*App, error) {
         Help:              help.New(),
         ShowHelp:          false,
         ConnectionDetails: cfg.DB.ConnectionDetails(),
+        HorizontalScrollOffset: 0,
     }
 
     return &App{
@@ -128,7 +129,7 @@ func (a App) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
                 a.model.SearchInput.Reset()
                 a.model.FilteredData = a.model.Data
                 if len(a.model.ColumnNames) > 0 && len(a.model.Data) > 0 {
-                    a.model.TableData = ui.CreateTableData(a.model.ColumnNames, a.model.FilteredData)
+                    a.model.TableData = ui.CreateTableData(a.model.ColumnNames, a.model.FilteredData, a.model.HorizontalScrollOffset)
                 }
             }
             return a, nil
@@ -140,6 +141,23 @@ func (a App) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
             } else if a.model.Focused == 1 { // Table view -> Table list
                 a.model.Focused = 0
                 a.model.SelectedTable = ""
+                return a, nil
+            }
+        // Handle horizontal scrolling
+        case key.Matches(msg, a.keys.ScrollLeft):
+            if a.model.Focused == 1 && a.model.HorizontalScrollOffset > 0 {
+                a.model.HorizontalScrollOffset--
+                if len(a.model.ColumnNames) > 0 && len(a.model.FilteredData) > 0 {
+                    a.model.TableData = ui.CreateTableData(a.model.ColumnNames, a.model.FilteredData, a.model.HorizontalScrollOffset)
+                }
+                return a, nil
+            }
+        case key.Matches(msg, a.keys.ScrollRight):
+            if a.model.Focused == 1 && a.model.HorizontalScrollOffset < len(a.model.ColumnNames)-1 {
+                a.model.HorizontalScrollOffset++
+                if len(a.model.ColumnNames) > 0 && len(a.model.FilteredData) > 0 {
+                    a.model.TableData = ui.CreateTableData(a.model.ColumnNames, a.model.FilteredData, a.model.HorizontalScrollOffset)
+                }
                 return a, nil
             }
         }
@@ -161,9 +179,11 @@ func (a App) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
                         a.model.FilteredData = a.model.Data
                         a.model.SearchQuery = ""
                         a.model.SearchInput.Reset()
+                        // Reset horizontal scroll when selecting a new table
+                        a.model.HorizontalScrollOffset = 0
                         
                         if len(a.model.ColumnNames) > 0 && len(a.model.Data) > 0 {
-                            a.model.TableData = ui.CreateTableData(a.model.ColumnNames, a.model.Data)
+                            a.model.TableData = ui.CreateTableData(a.model.ColumnNames, a.model.Data, a.model.HorizontalScrollOffset)
                         }
                         a.model.Focused = 1
                     }
@@ -255,6 +275,6 @@ func (a *App) applySearchFilter() {
     
     // Recreate the table with filtered data
     if len(a.model.ColumnNames) > 0 && len(a.model.FilteredData) > 0 {
-        a.model.TableData = ui.CreateTableData(a.model.ColumnNames, a.model.FilteredData)
+        a.model.TableData = ui.CreateTableData(a.model.ColumnNames, a.model.FilteredData, a.model.HorizontalScrollOffset)
     }
 }

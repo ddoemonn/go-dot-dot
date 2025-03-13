@@ -21,6 +21,8 @@ type KeyMap struct {
     PageDown   key.Binding
     Home       key.Binding
     End        key.Binding
+    ScrollLeft  key.Binding
+    ScrollRight key.Binding
 }
 
 // NewKeyMap creates a new keymap with default bindings
@@ -86,12 +88,20 @@ func NewKeyMap() *KeyMap {
             key.WithKeys("end"),
             key.WithHelp("end", "last item"),
         ),
+        ScrollLeft: key.NewBinding(
+            key.WithKeys("shift+left", "shift+h"),
+            key.WithHelp("shift+←/shift+h", "scroll left"),
+        ),
+        ScrollRight: key.NewBinding(
+            key.WithKeys("shift+right", "shift+l"),
+            key.WithHelp("shift+→/shift+l", "scroll right"),
+        ),
     }
 }
 
 // ShortHelp returns keybindings to be shown in the mini help view
 func (k KeyMap) ShortHelp() []key.Binding {
-    return []key.Binding{k.Up, k.Down, k.Select, k.ViewDetails, k.Search, k.Back, k.Help, k.Quit}
+    return []key.Binding{k.Up, k.Down, k.Select, k.ViewDetails, k.Search, k.ScrollLeft, k.ScrollRight, k.Back, k.Help, k.Quit}
 }
 
 // FullHelp returns keybindings for the expanded help view
@@ -99,6 +109,6 @@ func (k KeyMap) FullHelp() [][]key.Binding {
     return [][]key.Binding{
         {k.Up, k.Down, k.Left, k.Right, k.PageUp, k.PageDown},
         {k.Home, k.End, k.Select, k.ViewDetails, k.Back},
-        {k.Search, k.ClearSearch, k.Help, k.Quit},
+        {k.ScrollLeft, k.ScrollRight, k.Search, k.ClearSearch, k.Help, k.Quit},
     }
 }

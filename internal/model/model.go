@@ -30,6 +30,7 @@ type Model struct {
     SelectedRow       int
     SelectedRowData   map[string]string // Column name -> value
     ConnectionDetails string
+    HorizontalScrollOffset int // Track horizontal scroll position
 }
 
 // TableItem represents a database table in the list

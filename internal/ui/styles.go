@@ -48,6 +48,7 @@ type Styles struct {
     FilterIndicator lipgloss.Style
     TableDataHeader lipgloss.Style
     Divider         lipgloss.Style
+    ScrollIndicator lipgloss.Style
 }
 
 // NewStyles creates and initializes all application styles
@@ -148,6 +149,11 @@ func NewStyles() *Styles {
         
     s.Divider = lipgloss.NewStyle().
         Foreground(lipgloss.Color(ColorMuted))
+        
+    // Scroll indicator style
+    s.ScrollIndicator = lipgloss.NewStyle().
+        Foreground(lipgloss.Color(ColorInfo)).
+        Bold(true)
         
     return s
 }

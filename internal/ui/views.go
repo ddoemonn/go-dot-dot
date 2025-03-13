@@ -88,6 +88,32 @@ func RenderView(m *model.Model, styles *Styles, keys *KeyMap) string {
                 statusMsg = styles.StatusMessage.Render("Empty table")
             }
             
+            // Horizontal scroll indicator
+            scrollIndicator := ""
+            if len(m.ColumnNames) > 0 {
+                totalColumns := len(m.ColumnNames)
+                visibleColumns := totalColumns - m.HorizontalScrollOffset
+                
+                if m.HorizontalScrollOffset > 0 {
+                    leftArrow := styles.ScrollIndicator.Render("◀")
+                    scrollIndicator += leftArrow + " "
+                }
+                
+                if m.HorizontalScrollOffset < totalColumns - 1 {
+                    rightArrow := styles.ScrollIndicator.Render("▶")
+                    scrollIndicator += rightArrow + " "
+                }
+                
+                if scrollIndicator != "" {
+                    columnInfo := fmt.Sprintf("Columns %d-%d of %d", 
+                        m.HorizontalScrollOffset + 1, 
+                        m.HorizontalScrollOffset + visibleColumns,
+                        totalColumns)
+                    scrollIndicator += styles.StatusMessage.Render(columnInfo)
+                    scrollIndicator += " " + styles.StatusMessage.Render("(Shift+←/→ to scroll)")
+                }
+            }
+            
             dataView := m.TableData.View()
             if m.Focused == 1 {
                 dataView = styles.Focused.Render(dataView)
@@ -99,6 +125,7 @@ func RenderView(m *model.Model, styles *Styles, keys *KeyMap) string {
                 tableDataHeader,
                 searchUI,
                 statusMsg,
+                scrollIndicator,
                 dataView,
             )
         } else {
