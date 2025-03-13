@@ -28,8 +28,17 @@ A PostgreSQL database explorer TUI (Terminal User Interface) application written
 
 ## Screenshots
 ![Screenshot 2025-03-13 at 15 18 14](https://github.com/user-attachments/assets/68d1f830-3432-4598-bb24-f264c14485da)
+
+
+
 ![Screenshot 2025-03-13 at 15 18 00](https://github.com/user-attachments/assets/72f4d8e8-c49d-48bf-9046-647c6e901185)
+
+
+
 ![Screenshot 2025-03-13 at 15 18 08](https://github.com/user-attachments/assets/3695364e-21b9-4ac6-a88c-b931fcbaa52b)
+
+
+
 ![Screenshot 2025-03-13 at 15 18 23](https://github.com/user-attachments/assets/87fe7ea5-63ea-46a5-9643-624175f1b406)
 
 ## Installation
