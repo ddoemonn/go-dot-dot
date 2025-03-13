@@ -117,3 +117,13 @@ go-dot-dot/
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
+
+## ⭐ Star History
+
+<a href="https://star-history.com/#ddoemonn/go-dot-dot&Date">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=ddoemonn/go-dot-dot&type=Date&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=ddoemonn/go-dot-dot&type=Date" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=ddoemonn/go-dot-dot&type=Date" />
+ </picture>
+</a>
