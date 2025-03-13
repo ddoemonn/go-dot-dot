@@ -69,6 +69,8 @@ DB_HOST=localhost
 DB_PORT=5432
 ```
 
+If no `.env` file exists, the application will automatically prompt you for your database credentials when you run `go-dot-dot`. After entering the credentials, it will generate a `.env` file with your provided information for future use.
+
 ## Usage
 
 After starting the application, you'll see a list of tables in your database. 
