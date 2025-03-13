@@ -14,60 +14,60 @@ import (
 // UI styles for the setup wizard
 var (
 	titleStyle = lipgloss.NewStyle().
-		Bold(true).
-		Foreground(lipgloss.Color("#BB9AF7")).
-		MarginBottom(1).
-		Padding(1, 2)
+			Bold(true).
+			Foreground(lipgloss.Color("#BB9AF7")).
+			MarginBottom(1).
+			Padding(1, 2)
 
 	inputLabelStyle = lipgloss.NewStyle().
-		Bold(true).
-		Foreground(lipgloss.Color("#7AA2F7")).
-		Width(15).
-		PaddingRight(1)
+			Bold(true).
+			Foreground(lipgloss.Color("#7AA2F7")).
+			Width(15).
+			PaddingRight(1)
 
 	inputStyle = lipgloss.NewStyle().
-		Foreground(lipgloss.Color("#A9B1D6"))
+			Foreground(lipgloss.Color("#A9B1D6"))
 
 	infoStyle = lipgloss.NewStyle().
-		Italic(true).
-		Foreground(lipgloss.Color("#565F89"))
+			Italic(true).
+			Foreground(lipgloss.Color("#565F89"))
 
 	buttonStyle = lipgloss.NewStyle().
-		Foreground(lipgloss.Color("#1A1B26")).
-		Background(lipgloss.Color("#9ECE6A")).
-		Padding(0, 3).
-		Bold(true)
+			Foreground(lipgloss.Color("#1A1B26")).
+			Background(lipgloss.Color("#9ECE6A")).
+			Padding(0, 3).
+			Bold(true)
 
 	focusedButtonStyle = lipgloss.NewStyle().
-		Foreground(lipgloss.Color("#1A1B26")).
-		Background(lipgloss.Color("#F7768E")).
-		Padding(0, 3).
-		Bold(true)
+				Foreground(lipgloss.Color("#1A1B26")).
+				Background(lipgloss.Color("#F7768E")).
+				Padding(0, 3).
+				Bold(true)
 
 	errorStyle = lipgloss.NewStyle().
-		Foreground(lipgloss.Color("#F7768E")).
-		Italic(true)
+			Foreground(lipgloss.Color("#F7768E")).
+			Italic(true)
 )
 
 // SetupModel represents the UI state for the setup wizard
 type SetupModel struct {
-	inputs       []textinput.Model
-	focusIndex   int
-	err          error
-	width        int
-	height       int
-	buttonFocus  bool
-	confirmSave  bool
-	config       *Config
-	loading      bool
-	loadingMsg   string
+	inputs      []textinput.Model
+	focusIndex  int
+	err         error
+	width       int
+	height      int
+	buttonFocus bool
+	confirmSave bool
+	config      *Config
+	loading     bool
+	loadingMsg  string
 }
 
 // NewSetupModel creates a new setup wizard model
 func NewSetupModel() SetupModel {
 	// Create text inputs for each field
 	inputs := make([]textinput.Model, 5)
-	
+
 	// DB User
 	inputs[0] = textinput.New()
 	inputs[0].Placeholder = "postgres"
@@ -75,7 +75,7 @@ func NewSetupModel() SetupModel {
 	inputs[0].Width = 30
 	inputs[0].Prompt = "› "
 	inputs[0].PromptStyle = lipgloss.NewStyle().Foreground(lipgloss.Color("#7AA2F7"))
-	
+
 	// DB Password
 	inputs[1] = textinput.New()
 	inputs[1].Placeholder = "password"
@@ -84,28 +84,28 @@ func NewSetupModel() SetupModel {
 	inputs[1].PromptStyle = lipgloss.NewStyle().Foreground(lipgloss.Color("#7AA2F7"))
 	inputs[1].EchoMode = textinput.EchoPassword
 	inputs[1].EchoCharacter = '•'
-	
+
 	// DB Name
 	inputs[2] = textinput.New()
 	inputs[2].Placeholder = "postgres"
 	inputs[2].Width = 30
 	inputs[2].Prompt = "› "
 	inputs[2].PromptStyle = lipgloss.NewStyle().Foreground(lipgloss.Color("#7AA2F7"))
-	
+
 	// DB Host
 	inputs[3] = textinput.New()
 	inputs[3].Placeholder = "localhost"
 	inputs[3].Width = 30
 	inputs[3].Prompt = "› "
 	inputs[3].PromptStyle = lipgloss.NewStyle().Foreground(lipgloss.Color("#7AA2F7"))
-	
+
 	// DB Port
 	inputs[4] = textinput.New()
 	inputs[4].Placeholder = "5432"
 	inputs[4].Width = 30
 	inputs[4].Prompt = "› "
 	inputs[4].PromptStyle = lipgloss.NewStyle().Foreground(lipgloss.Color("#7AA2F7"))
-	
+
 	return SetupModel{
 		inputs:      inputs,
 		focusIndex:  0,
@@ -124,18 +124,18 @@ func (m SetupModel) Init() tea.Cmd {
 // Update handles user input
 func (m SetupModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	var cmds []tea.Cmd
-	
+
 	switch msg := msg.(type) {
 	case tea.KeyMsg:
 		// If loading, ignore key presses
 		if m.loading {
 			return m, nil
 		}
-		
+
 		switch msg.String() {
 		case "ctrl+c", "esc":
 			return m, tea.Quit
-			
+
 		case "tab", "shift+tab", "up", "down":
 			if !m.buttonFocus {
 				// Cycle through inputs
@@ -150,7 +150,7 @@ func (m SetupModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 						m.focusIndex = 0
 					}
 				}
-				
+
 				// Update focus states
 				for i := 0; i < len(m.inputs); i++ {
 					if i == m.focusIndex {
@@ -160,7 +160,7 @@ func (m SetupModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 					}
 				}
 			}
-			
+
 		case "enter":
 			if m.focusIndex == len(m.inputs)-1 && !m.buttonFocus {
 				// Move focus to the button
@@ -175,7 +175,7 @@ func (m SetupModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 					return m, m.saveConfigCmd
 				}
 			}
-			
+
 		case "backspace":
 			if m.buttonFocus {
 				// Move focus back to the last input
@@ -184,19 +184,19 @@ func (m SetupModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				cmds = append(cmds, m.inputs[m.focusIndex].Focus())
 			}
 		}
-		
+
 	case tea.WindowSizeMsg:
 		m.width = msg.Width
 		m.height = msg.Height
 	}
-	
+
 	// Handle input updates
 	if !m.buttonFocus {
 		var cmd tea.Cmd
 		m.inputs[m.focusIndex], cmd = m.inputs[m.focusIndex].Update(msg)
 		cmds = append(cmds, cmd)
 	}
-	
+
 	return m, tea.Batch(cmds...)
 }
 
@@ -207,15 +207,15 @@ func (m SetupModel) View() string {
 			infoStyle.Render("Starting application...") + "\n\n" +
 			"Please wait a moment."
 	}
-	
+
 	if m.loading {
 		return titleStyle.Render("PostgreSQL Database Configuration") + "\n\n" +
 			infoStyle.Render(m.loadingMsg) + "\n\n" +
 			"Please wait..."
 	}
-	
+
 	title := titleStyle.Render("PostgreSQL Database Configuration")
-	
+
 	// Render inputs with labels
 	inputs := []string{
 		renderLabeledInput("DB User:", m.inputs[0].View()),
@@ -224,7 +224,7 @@ func (m SetupModel) View() string {
 		renderLabeledInput("DB Host:", m.inputs[3].View()),
 		renderLabeledInput("DB Port:", m.inputs[4].View()),
 	}
-	
+
 	// Render save button
 	var button string
 	if m.buttonFocus {
@@ -232,16 +232,16 @@ func (m SetupModel) View() string {
 	} else {
 		button = buttonStyle.Render("Save Configuration")
 	}
-	
+
 	// Render error if any
 	errorMsg := ""
 	if m.err != nil {
 		errorMsg = "\n" + errorStyle.Render(m.err.Error())
 	}
-	
+
 	// Render help text
 	help := "\n" + infoStyle.Render("Tab/Shift+Tab: Navigate • Enter: Confirm • Esc: Quit")
-	
+
 	return fmt.Sprintf(
 		"%s\n\n%s\n\n%s%s%s",
 		title,
@@ -272,7 +272,7 @@ func (m *SetupModel) validateInputs() bool {
 			}
 		}
 	}
-	
+
 	m.err = nil
 	return true
 }
@@ -287,7 +287,7 @@ func (m *SetupModel) saveConfigCmd() tea.Msg {
 		Host:     getValue(m.inputs[3].Value(), "localhost"),
 		Port:     getValue(m.inputs[4].Value(), "5432"),
 	}
-	
+
 	// Create .env file content
 	content := fmt.Sprintf(
 		"DB_USER=%s\nDB_PASSWORD=%s\nDB_NAME=%s\nDB_HOST=%s\nDB_PORT=%s\n",
@@ -297,7 +297,7 @@ func (m *SetupModel) saveConfigCmd() tea.Msg {
 		m.config.DB.Host,
 		m.config.DB.Port,
 	)
-	
+
 	// Write to .env file
 	err := os.WriteFile(".env", []byte(content), 0644)
 	if err != nil {
@@ -305,14 +305,14 @@ func (m *SetupModel) saveConfigCmd() tea.Msg {
 		m.loading = false
 		return nil
 	}
-	
+
 	// Set confirmSave to true and immediately return to quit the program
 	m.confirmSave = true
-	
+
 	// Show success message briefly
 	fmt.Println("\nConfiguration saved successfully!")
 	fmt.Println("Starting application...")
-	
+
 	return tea.Quit()
 }
 
@@ -328,7 +328,7 @@ func getValue(input, fallback string) string {
 func getEnv(key, fallback string) string {
 	// Try to load .env file first
 	_ = godotenv.Load()
-	
+
 	if value, exists := os.LookupEnv(key); exists {
 		return value
 	}
@@ -339,17 +339,17 @@ func getEnv(key, fallback string) string {
 func RunSetup() (*Config, error) {
 	model := NewSetupModel()
 	p := tea.NewProgram(model, tea.WithAltScreen())
-	
+
 	finalModel, err := p.Run()
 	if err != nil {
 		return nil, err
 	}
-	
+
 	m, ok := finalModel.(SetupModel)
 	if !ok {
 		return nil, fmt.Errorf("could not convert model")
 	}
-	
+
 	// Check if .env file exists regardless of confirmSave flag
 	if _, err := os.Stat(".env"); err == nil {
 		// .env file exists, so configuration was saved
@@ -363,11 +363,11 @@ func RunSetup() (*Config, error) {
 			},
 		}, nil
 	}
-	
+
 	if m.confirmSave {
 		// Return the config immediately without waiting
 		return m.config, nil
 	}
-	
+
 	return nil, fmt.Errorf("setup cancelled")
-} 
+}
