@@ -21,6 +21,7 @@ func CreateTableItems(tables []string) []list.Item {
 // CreateTableList creates a styled list for table selection
 func CreateTableList(tables []string, styles *Styles) list.Model {
     listDelegate := list.NewDefaultDelegate()
+    listDelegate.SetSpacing(0) // Reduce the spacing between items to 0
     listDelegate.Styles.SelectedTitle = listDelegate.Styles.SelectedTitle.
         Foreground(lipgloss.Color(ColorBackground)).
         Background(lipgloss.Color(ColorSecondary))
