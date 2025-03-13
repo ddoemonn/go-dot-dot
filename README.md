@@ -2,6 +2,22 @@
 
 A PostgreSQL database explorer TUI (Terminal User Interface) application written in Go.
 
+## Table of Contents
+
+- [go-dot-dot](#go-dot-dot)
+  - [Table of Contents](#table-of-contents)
+  - [Features](#features)
+  - [Screenshots](#screenshots)
+  - [Installation](#installation)
+    - [Prerequisites](#prerequisites)
+    - [From Source](#from-source)
+  - [Configuration](#configuration)
+  - [Usage](#usage)
+    - [Key Bindings](#key-bindings)
+  - [Project Structure](#project-structure)
+  - [License](#license)
+  - [Contributing](#contributing)
+
 ## Features
 
 - Browse database tables in an interactive terminal interface
@@ -9,6 +25,10 @@ A PostgreSQL database explorer TUI (Terminal User Interface) application written
 - Search table contents
 - Detailed row view for examining specific records
 - Keyboard-driven navigation with intuitive shortcuts
+
+## Screenshots
+
+*Coming soon! Screenshots of the application interface will be added here.*
 
 ## Installation
 
