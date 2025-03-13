@@ -5,8 +5,8 @@ A PostgreSQL database explorer TUI (Terminal User Interface) application written
 ## Features
 
 - Browse database tables in an interactive terminal interface
-- View table data with pagination
-- Search and filter table contents
+- View table data
+- Search table contents
 - Detailed row view for examining specific records
 - Keyboard-driven navigation with intuitive shortcuts
 
@@ -21,21 +21,19 @@ A PostgreSQL database explorer TUI (Terminal User Interface) application written
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/go-dot-dot.git
+git clone https://github.com/ddoemonn/go-dot-dot.git
 cd go-dot-dot
 
 # Build the application
 go build -o go-dot-dot
 
+# Move the executable to a directory in your PATH (e.g., /usr/local/bin)
+sudo mv go-dot-dot /usr/local/bin
+
 # Run the application
-./go-dot-dot
+go-dot-dot
 ```
 
-### Using Go Install
-
-```bash
-go install github.com/yourusername/go-dot-dot@latest
-```
 
 ## Configuration
 
@@ -62,9 +60,7 @@ After starting the application, you'll see a list of tables in your database.
 - `q`: Quit the application
 - `?`: Toggle help view
 
-## Development
-
-### Project Structure
+## Project Structure
 
 ```
 go-dot-dot/
@@ -82,53 +78,6 @@ go-dot-dot/
 ├── go.sum                  # Go module checksums
 └── .env                    # Environment variables
 ```
-
-### Building from Source
-
-```bash
-go build -o go-dot-dot
-```
-
-## Publishing to GitHub
-
-1. Create a new repository on GitHub
-2. Initialize Git in your local project (if not already done):
-   ```bash
-   git init
-   ```
-3. Add your files:
-   ```bash
-   git add .
-   ```
-4. Commit your changes:
-   ```bash
-   git commit -m "Initial commit"
-   ```
-5. Add your GitHub repository as remote:
-   ```bash
-   git remote add origin https://github.com/yourusername/go-dot-dot.git
-   ```
-6. Push your code:
-   ```bash
-   git push -u origin main
-   ```
-
-## Publishing as a Go Package
-
-1. Ensure your module name in `go.mod` matches your GitHub repository path:
-   ```
-   module github.com/yourusername/go-dot-dot
-   ```
-2. Push your code to GitHub
-3. Tag a release:
-   ```bash
-   git tag v0.1.0
-   git push origin v0.1.0
-   ```
-4. Your package will be available via:
-   ```bash
-   go get github.com/yourusername/go-dot-dot@v0.1.0
-   ```
 
 ## License
 
