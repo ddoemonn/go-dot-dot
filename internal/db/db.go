@@ -62,7 +62,7 @@ func (db *Database) FetchTables() ([]string, error) {
 
 // FetchTableData retrieves data from a specific table
 func (db *Database) FetchTableData(tableName string) ([][]string, []string, error) {
-	query := fmt.Sprintf("SELECT * FROM %s LIMIT 1000", tableName) // Added limit for performance
+	query := fmt.Sprintf("SELECT * FROM \"%s\" LIMIT 1000", tableName) // Added limit for performance
 	rows, err := db.pool.Query(context.Background(), query)
 	if err != nil {
 		return nil, nil, err
