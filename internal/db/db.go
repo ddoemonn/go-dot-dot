@@ -6,6 +6,7 @@ import (
 
 	"github.com/ddoemonn/go-dot-dot/internal/config"
 	"github.com/google/uuid"
+	"github.com/jackc/pgx/v5/pgtype"
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
@@ -94,7 +95,7 @@ func (db *Database) FetchTableData(tableName string) ([][]string, []string, erro
 			} else {
 				switch val := v.(type) {
 				case [16]uint8:
-					if columnOIDs[i] == 2950 {
+					if columnOIDs[i] == 2950 { // column OID for uuid
 						u, err := uuid.FromBytes(val[:])
 						if err != nil {
 							row[i] = fmt.Sprintf("%v", val)
@@ -104,6 +105,17 @@ func (db *Database) FetchTableData(tableName string) ([][]string, []string, erro
 					} else {
 						row[i] = fmt.Sprintf("%v", val)
 					}
+				case pgtype.Numeric:
+					if !val.Valid {
+						row[i] = "NULL"
+						continue
+					}
+					f, err := val.Float64Value()
+					if err != nil {
+						row[i] = "NULL"
+						continue
+					}
+					row[i] = fmt.Sprintf("%f", f.Float64)
 				default:
 					row[i] = fmt.Sprintf("%v", val)
 				}
