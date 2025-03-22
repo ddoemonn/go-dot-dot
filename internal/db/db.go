@@ -5,6 +5,8 @@ import (
 	"fmt"
 
 	"github.com/ddoemonn/go-dot-dot/internal/config"
+	"github.com/google/uuid"
+	"github.com/jackc/pgx/v5/pgtype"
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
@@ -72,8 +74,10 @@ func (db *Database) FetchTableData(tableName string) ([][]string, []string, erro
 	// Get column names
 	fieldDescriptions := rows.FieldDescriptions()
 	columns := make([]string, len(fieldDescriptions))
+	columnOIDs := make([]uint32, len(fieldDescriptions))
 	for i, fd := range fieldDescriptions {
 		columns[i] = string(fd.Name)
+		columnOIDs[i] = fd.DataTypeOID
 	}
 
 	// Fetch rows
@@ -89,7 +93,32 @@ func (db *Database) FetchTableData(tableName string) ([][]string, []string, erro
 			if v == nil {
 				row[i] = "NULL"
 			} else {
-				row[i] = fmt.Sprintf("%v", v)
+				switch val := v.(type) {
+				case [16]uint8:
+					if columnOIDs[i] == 2950 { // column OID for uuid
+						u, err := uuid.FromBytes(val[:])
+						if err != nil {
+							row[i] = fmt.Sprintf("%v", val)
+						} else {
+							row[i] = u.String()
+						}
+					} else {
+						row[i] = fmt.Sprintf("%v", val)
+					}
+				case pgtype.Numeric:
+					if !val.Valid {
+						row[i] = "NULL"
+						continue
+					}
+					f, err := val.Float64Value()
+					if err != nil {
+						row[i] = "NULL"
+						continue
+					}
+					row[i] = fmt.Sprintf("%f", f.Float64)
+				default:
+					row[i] = fmt.Sprintf("%v", val)
+				}
 			}
 		}
 		data = append(data, row)
